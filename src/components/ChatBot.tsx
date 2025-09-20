@@ -17,7 +17,7 @@ export const ChatBot = () => {
     {
       id: '1',
       type: 'bot',
-      content: "Hi! I'm your AI assistant. I can help answer questions about products, pricing, shipping, and more. What would you like to know?",
+      content: "Hello! I'm your professional AI commerce assistant. I can help with product optimization, pricing strategies, market analysis, customer service best practices, and operational efficiency. How may I assist you today?",
       timestamp: new Date()
     }
   ]);
@@ -25,15 +25,30 @@ export const ChatBot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  const mockResponses = [
-    "Based on the product details, I'd recommend pricing it competitively at around $150-200 depending on the materials and craftsmanship quality.",
-    "For shipping, I suggest offering both standard (5-7 days) and express (2-3 days) options. Most customers prefer free shipping over $50.",
-    "That's a great product! To improve visibility, make sure to include relevant keywords in your title and description. High-quality photos from multiple angles also help significantly.",
-    "The return policy should be customer-friendly - I recommend 30-day returns for unused items. This builds trust and can increase sales conversion.",
-    "For product photography, use natural lighting when possible and show the item from multiple angles. Include scale references and lifestyle shots to help customers visualize the product.",
-    "Customer reviews are crucial for building trust. Consider following up with buyers after delivery to encourage honest feedback.",
-    "Cross-selling works well with complementary products. If you're selling a phone case, suggest screen protectors or phone accessories.",
-    "Seasonal demand can affect pricing. Electronics typically see higher demand during back-to-school and holiday seasons."
+  const professionalResponses = [
+    "For optimal market positioning, I recommend conducting competitive analysis within your category. Price competitively while highlighting unique value propositions that differentiate your offering from similar products.",
+    
+    "Professional product photography significantly impacts conversion rates. Use consistent lighting, multiple angles, and lifestyle shots that demonstrate product usage. High-resolution images with zoom functionality increase buyer confidence.",
+    
+    "Effective product descriptions should include key specifications, benefits, and use cases. Structure content with bullet points for easy scanning, and include relevant keywords for search optimization without compromising readability.",
+    
+    "Customer service excellence drives repeat business and positive reviews. Implement clear communication policies, fast response times, and proactive follow-up procedures to build long-term customer relationships.",
+    
+    "Inventory management optimization involves demand forecasting, supplier relationship management, and automated reorder points. Consider seasonal trends and lead times to maintain optimal stock levels.",
+    
+    "Market expansion strategies should be data-driven. Analyze customer demographics, geographic performance, and seasonal patterns to identify growth opportunities and optimize resource allocation.",
+    
+    "Return policies should balance customer satisfaction with business protection. Clear, reasonable policies build trust while protecting profit margins. Consider offering partial returns or store credit alternatives.",
+    
+    "Cross-selling and upselling opportunities exist throughout the customer journey. Recommend complementary products based on purchase history and browsing behavior to increase average order value.",
+    
+    "Quality assurance processes ensure consistent customer satisfaction. Implement systematic product checks, supplier audits, and customer feedback analysis to maintain high standards.",
+    
+    "Pricing strategies should consider market positioning, cost structures, and competitive landscape. Dynamic pricing models can optimize revenue based on demand patterns and inventory levels.",
+    
+    "Customer retention programs should focus on value delivery and engagement. Loyalty programs, personalized recommendations, and exclusive offers can significantly improve lifetime customer value.",
+    
+    "Performance metrics tracking enables data-driven decisions. Monitor key indicators like conversion rates, customer acquisition costs, and average order values to optimize business operations.",
   ];
 
   const sendMessage = async () => {
@@ -56,7 +71,7 @@ export const ChatBot = () => {
     const botMessage: Message = {
       id: (Date.now() + 1).toString(),
       type: 'bot',
-      content: mockResponses[Math.floor(Math.random() * mockResponses.length)],
+      content: professionalResponses[Math.floor(Math.random() * professionalResponses.length)],
       timestamp: new Date()
     };
 
@@ -82,7 +97,7 @@ export const ChatBot = () => {
 
   return (
     <div className="space-y-4">
-      <Card className="h-96 bg-secondary/20 border-glass">
+      <Card className="h-96 bg-background border shadow-elegant">
         <ScrollArea ref={scrollAreaRef} className="h-full p-4">
           <div className="space-y-4">
             {messages.map((message) => (
@@ -94,15 +109,15 @@ export const ChatBot = () => {
               >
                 {message.type === 'bot' && (
                   <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0">
-                    <Bot className="h-4 w-4 text-foreground" />
+                    <Bot className="h-4 w-4 text-primary-foreground" />
                   </div>
                 )}
                 
                 <div
                   className={`max-w-[80%] rounded-lg p-3 ${
                     message.type === 'user'
-                      ? 'bg-primary text-primary-foreground ml-12'
-                      : 'bg-glass border-glass backdrop-blur-sm'
+                      ? 'bg-foreground text-background ml-12'
+                      : 'bg-muted border'
                   }`}
                 >
                   <p className="text-sm leading-relaxed">{message.content}</p>
@@ -116,7 +131,7 @@ export const ChatBot = () => {
                 
                 {message.type === 'user' && (
                   <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
-                    <User className="h-4 w-4" />
+                    <User className="h-4 w-4 text-muted-foreground" />
                   </div>
                 )}
               </div>
@@ -125,12 +140,12 @@ export const ChatBot = () => {
             {isTyping && (
               <div className="flex gap-3 justify-start">
                 <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center flex-shrink-0">
-                  <Bot className="h-4 w-4 text-foreground" />
+                  <Bot className="h-4 w-4 text-primary-foreground" />
                 </div>
-                <div className="bg-glass border-glass backdrop-blur-sm rounded-lg p-3">
+                <div className="bg-muted border rounded-lg p-3">
                   <div className="flex items-center gap-2">
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    <span className="text-sm text-muted-foreground">AI is typing...</span>
+                    <span className="text-sm text-muted-foreground">Analyzing your request...</span>
                   </div>
                 </div>
               </div>
@@ -144,8 +159,8 @@ export const ChatBot = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Ask me anything about your products, pricing, or selling strategy..."
-          className="flex-1 bg-glass border-glass backdrop-blur-sm"
+          placeholder="Ask about product optimization, pricing strategies, market analysis, or operational guidance..."
+          className="flex-1 bg-background border"
           disabled={isTyping}
         />
         <Button 

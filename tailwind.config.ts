@@ -63,19 +63,18 @@ export default {
         "gradient-secondary": "var(--gradient-secondary)",
         "gradient-accent": "var(--gradient-accent)",
       },
-      backgroundColor: {
-        "glass": "var(--glass-bg)",
-      },
-      borderColor: {
-        "glass": "var(--glass-border)",
-      },
       boxShadow: {
-        "ai": "var(--shadow-ai)",
-        "glass": "var(--shadow-glass)",
+        "elegant": "var(--shadow-elegant)",
+        "elevated": "var(--shadow-elevated)",
+        "prominent": "var(--shadow-prominent)",
       },
       transitionTimingFunction: {
+        "elegant": "var(--transition-elegant)",
         "smooth": "var(--transition-smooth)",
-        "bounce": "var(--transition-bounce)",
+      },
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+        'sans': ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

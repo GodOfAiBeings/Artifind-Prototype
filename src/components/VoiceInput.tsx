@@ -69,36 +69,47 @@ export const VoiceInput = () => {
     // Simulate voice processing with realistic delay
     await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 2000));
     
-    // Mock voice-to-text and AI processing results
-    const mockResults = [
-      {
-        transcript: "मैं एक सुंदर हैंडमेड कॉटन कुर्ता बेचना चाहता हूँ जो पारंपरिक डिज़ाइन के साथ है",
-        title: "Traditional Handmade Cotton Kurta",
-        category: "Fashion & Clothing",
-        language: "Hindi"
-      },
-      {
-        transcript: "I want to sell a premium wireless gaming mouse with RGB lighting and programmable buttons",
-        title: "RGB Gaming Mouse - Wireless & Programmable",
-        category: "Electronics & Gaming",
-        language: "English"
-      },
-      {
-        transcript: "Je veux vendre un sac à main en cuir véritable de couleur marron avec des détails dorés",
-        title: "Genuine Leather Handbag - Brown with Gold Details",
-        category: "Fashion & Accessories",
-        language: "French"
-      },
-      {
-        transcript: "Quiero vender una guitarra acústica de madera maciza perfecta para principiantes",
-        title: "Solid Wood Acoustic Guitar - Perfect for Beginners",
-        category: "Musical Instruments",
-        language: "Spanish"
-      }
+    // Mock voice-to-text and AI processing results with professional variety
+    const productCategories = [
+      'Electronics & Technology', 'Fashion & Apparel', 'Home & Garden', 'Sports & Fitness',
+      'Beauty & Personal Care', 'Books & Media', 'Automotive Parts', 'Industrial Equipment',
+      'Office Supplies', 'Health & Medical', 'Food & Beverages', 'Pet Supplies',
+      'Arts & Crafts', 'Musical Instruments', 'Jewelry & Accessories', 'Tools & Hardware'
     ];
     
-    const randomResult = mockResults[Math.floor(Math.random() * mockResults.length)];
-    setResult(randomResult);
+    const languages = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese', 'Hindi', 'Mandarin', 'Japanese', 'Arabic'];
+    
+    const professionalTranscripts = [
+      "I have a high-quality product that I'd like to list for sale with professional specifications and competitive pricing",
+      "Looking to create a professional listing for this premium item with detailed product information and market positioning",
+      "I need to list this commercial-grade product with appropriate technical specifications and industry-standard descriptions",
+      "Want to create a professional marketplace listing for this quality item with optimized title and category placement",
+      "I have a professional product that needs proper documentation and listing with market-appropriate pricing strategy",
+      "Need to generate a comprehensive product listing with professional descriptions and competitive market analysis"
+    ];
+    
+    const generateProfessionalTitle = (category: string) => {
+      const adjectives = ['Professional', 'Premium', 'Advanced', 'High-Performance', 'Commercial-Grade', 'Industrial', 'Professional-Quality'];
+      const descriptors = ['Solution', 'System', 'Equipment', 'Product', 'Tool', 'Device', 'Kit', 'Set'];
+      
+      const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+      const descriptor = descriptors[Math.floor(Math.random() * descriptors.length)];
+      
+      return `${adjective} ${category} ${descriptor} - ${['Certified', 'Verified', 'Tested', 'Approved'][Math.floor(Math.random() * 4)]} Quality`;
+    };
+    
+    const randomLanguage = languages[Math.floor(Math.random() * languages.length)];
+    const randomCategory = productCategories[Math.floor(Math.random() * productCategories.length)];
+    const randomTranscript = professionalTranscripts[Math.floor(Math.random() * professionalTranscripts.length)];
+    const generatedTitle = generateProfessionalTitle(randomCategory);
+    
+    const result = {
+      transcript: randomTranscript,
+      title: generatedTitle,
+      category: randomCategory,
+      language: randomLanguage
+    };
+    setResult(result);
     setIsProcessing(false);
     
     toast({
@@ -125,14 +136,14 @@ export const VoiceInput = () => {
         <div className="text-center space-y-6">
           <div className="relative">
             <div 
-              className={`w-32 h-32 rounded-full mx-auto flex items-center justify-center transition-all duration-300 ${
+              className={`w-32 h-32 rounded-full mx-auto flex items-center justify-center transition-elegant ${
                 isRecording 
-                  ? "bg-red-500/20 border-4 border-red-500 animate-pulse" 
-                  : "bg-gradient-primary border-4 border-primary/30 hover:border-primary/50"
+                  ? "bg-red-50 border-4 border-red-400 animate-pulse" 
+                  : "bg-gradient-secondary border-4 border-border hover:border-muted-foreground"
               }`}
             >
               {isProcessing ? (
-                <Loader2 className="h-12 w-12 animate-spin text-foreground" />
+                <Loader2 className="h-12 w-12 animate-spin text-muted-foreground" />
               ) : isRecording ? (
                 <MicOff className="h-12 w-12 text-red-500" />
               ) : (
@@ -141,7 +152,7 @@ export const VoiceInput = () => {
             </div>
             
             {isRecording && (
-              <div className="absolute -inset-4 rounded-full border-2 border-red-500/30 animate-ping" />
+              <div className="absolute -inset-4 rounded-full border-2 border-red-400/30 animate-ping" />
             )}
           </div>
           
@@ -151,10 +162,10 @@ export const VoiceInput = () => {
             </h3>
             <p className="text-muted-foreground">
               {isProcessing 
-                ? "Converting speech to text and generating product details..."
+                ? "Processing speech and generating professional product information..."
                 : isRecording 
                 ? "Speak clearly about your product. Click stop when finished."
-                : "Click the microphone to start recording your product description"
+                : "Click the microphone to record your product description in any language"
               }
             </p>
           </div>
@@ -182,42 +193,42 @@ export const VoiceInput = () => {
             ) : null}
           </div>
         </div>
-      ) : (
-        <div className="space-y-6">
-          <Card className="p-6 bg-secondary/20 border-glass">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-green-400">
-                  <Mic className="h-5 w-5" />
-                  <span className="font-medium">Voice Processing Complete</span>
-                </div>
-                {audioBlob && (
-                  <Button variant="ghost" size="sm" onClick={playAudio}>
-                    <Volume2 className="h-4 w-4 mr-2" />
-                    Play Recording
-                  </Button>
-                )}
-              </div>
+          ) : (
+            <div className="space-y-6">
+              <Card className="p-6 bg-background border shadow-elegant">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-green-600">
+                      <Mic className="h-5 w-5" />
+                      <span className="font-medium">Processing Complete</span>
+                    </div>
+                    {audioBlob && (
+                      <Button variant="ghost" size="sm" onClick={playAudio}>
+                        <Volume2 className="h-4 w-4 mr-2" />
+                        Replay
+                      </Button>
+                    )}
+                  </div>
               
               <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold mb-2 flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
-                    Transcript ({result.language})
-                  </h4>
-                  <p className="text-sm text-muted-foreground p-3 bg-muted rounded-lg italic">
-                    "{result.transcript}"
-                  </p>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold mb-2 flex items-center gap-2">
                       <FileText className="h-4 w-4" />
-                      Generated Title
+                      Speech Recognition ({result.language})
                     </h4>
-                    <p className="text-lg font-medium text-primary">{result.title}</p>
+                    <p className="text-sm text-muted-foreground p-3 bg-muted rounded-lg">
+                      "{result.transcript}"
+                    </p>
                   </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                        <FileText className="h-4 w-4" />
+                        Optimized Title
+                      </h4>
+                      <p className="text-lg font-medium text-foreground">{result.title}</p>
+                    </div>
                   
                   <div>
                     <h4 className="font-semibold mb-2 flex items-center gap-2">
@@ -233,7 +244,7 @@ export const VoiceInput = () => {
           
           <div className="flex justify-center">
             <Button variant="outline" onClick={resetRecording}>
-              Record Another Product
+              Record New Product
             </Button>
           </div>
         </div>

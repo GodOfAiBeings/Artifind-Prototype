@@ -8,50 +8,47 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 23% 9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 100%;
+    --foreground: 224 71% 4%;
 
-    --card: 240 19% 12%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
 
-    --popover: 240 19% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
 
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 220 14% 96%;
+    --primary-foreground: 220 9% 46%;
 
-    --secondary: 240 19% 16%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 9% 46%;
 
-    --muted: 240 19% 16%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 262 83% 58%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 220 13% 91%;
+    --accent-foreground: 220 9% 46%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 19% 16%;
-    --input: 240 19% 16%;
-    --ring: 262 83% 58%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71% 4%;
 
-    /* AI-themed gradients and effects */
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(193 76% 59%));
-    --gradient-secondary: linear-gradient(135deg, hsl(240 19% 16%), hsl(240 19% 20%));
-    --gradient-accent: linear-gradient(135deg, hsl(262 83% 58% / 0.1), hsl(193 76% 59% / 0.1));
+    /* Professional gradients and effects */
+    --gradient-primary: linear-gradient(135deg, hsl(224 71% 4%), hsl(220 9% 46%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 14% 96%), hsl(0 0% 100%));
+    --gradient-accent: linear-gradient(135deg, hsl(220 13% 91% / 0.6), hsl(0 0% 100% / 0.9));
     
-    /* Glass effect */
-    --glass-bg: hsl(240 19% 12% / 0.8);
-    --glass-border: hsl(0 0% 100% / 0.1);
+    /* Elegant effects */
+    --shadow-elegant: 0 1px 3px hsl(220 9% 46% / 0.1), 0 1px 2px hsl(220 9% 46% / 0.06);
+    --shadow-elevated: 0 4px 6px -1px hsl(220 9% 46% / 0.1), 0 2px 4px -1px hsl(220 9% 46% / 0.06);
+    --shadow-prominent: 0 10px 15px -3px hsl(220 9% 46% / 0.1), 0 4px 6px -2px hsl(220 9% 46% / 0.05);
     
-    /* Shadows and glows */
-    --shadow-ai: 0 10px 40px hsl(262 83% 58% / 0.3);
-    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.3);
-    
-    /* Animation properties */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Professional animations */
+    --transition-elegant: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
     --radius: 0.5rem;
 

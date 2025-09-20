@@ -43,27 +43,40 @@ export const ImageUpload = () => {
     // Simulate AI processing with realistic delay
     await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 2000));
     
-    // Mock AI results based on image analysis
-    const mockResults = [
-      {
-        description: "Premium wireless headphones with active noise cancellation, 30-hour battery life, and crystal-clear audio quality. Perfect for music lovers and professionals who demand the best sound experience.",
-        price: "$299.99",
-        category: "Electronics"
-      },
-      {
-        description: "Stylish ceramic coffee mug with ergonomic handle design. Microwave and dishwasher safe, perfect for your morning coffee ritual. Elegant matte finish adds sophistication to any kitchen.",
-        price: "$24.99",
-        category: "Home & Kitchen"
-      },
-      {
-        description: "High-performance running shoes with advanced cushioning technology and breathable mesh upper. Designed for athletes and fitness enthusiasts seeking comfort and performance.",
-        price: "$149.99",
-        category: "Sports & Fashion"
-      }
+    // Mock AI results with professional variety
+    const productCategories = ['Electronics', 'Fashion', 'Home & Garden', 'Sports & Outdoors', 'Beauty & Health', 'Books & Media', 'Automotive', 'Toys & Games', 'Office Supplies', 'Industrial Equipment'];
+    const priceRanges = [
+      { min: 15, max: 50, suffix: '.99' },
+      { min: 50, max: 200, suffix: '.00' },
+      { min: 200, max: 1000, suffix: '.99' },
+      { min: 25, max: 75, suffix: '.95' }
     ];
     
-    const randomResult = mockResults[Math.floor(Math.random() * mockResults.length)];
-    setResult(randomResult);
+    const generatePrice = () => {
+      const range = priceRanges[Math.floor(Math.random() * priceRanges.length)];
+      const price = Math.floor(Math.random() * (range.max - range.min) + range.min);
+      return `$${price}${range.suffix}`;
+    };
+    
+    const professionalDescriptions = [
+      "Premium quality product featuring advanced materials and superior craftsmanship. Designed for professionals and enthusiasts who demand excellence. Includes comprehensive warranty and customer support.",
+      "High-performance item with innovative design and cutting-edge technology. Perfect for both commercial and personal use. Meets industry standards and certifications for quality assurance.",
+      "Professional-grade solution offering exceptional durability and reliability. Engineered with precision components and backed by extensive research and development. Ideal for demanding applications.",
+      "Sophisticated product combining elegant aesthetics with functional excellence. Crafted from premium materials with attention to detail. Suitable for discerning customers seeking quality and style.",
+      "Industrial-strength item designed for heavy-duty applications. Features robust construction and advanced engineering for maximum performance and longevity. Trusted by professionals worldwide.",
+      "Innovative product incorporating latest technology and user-centric design. Optimized for efficiency and ease of use. Complies with international quality and safety standards."
+    ];
+    
+    const randomCategory = productCategories[Math.floor(Math.random() * productCategories.length)];
+    const randomDescription = professionalDescriptions[Math.floor(Math.random() * professionalDescriptions.length)];
+    const randomPrice = generatePrice();
+    
+    const result = {
+      description: randomDescription,
+      price: randomPrice,
+      category: randomCategory
+    };
+    setResult(result);
     setIsProcessing(false);
     
     toast({
@@ -82,8 +95,10 @@ export const ImageUpload = () => {
       {!uploadedImage ? (
         <div
           {...getRootProps()}
-          className={`border-2 border-dashed border-glass rounded-lg p-12 text-center cursor-pointer transition-all duration-300 ${
-            isDragActive ? "border-primary bg-gradient-accent" : "hover:border-primary/50 hover:bg-gradient-accent"
+          className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-elegant ${
+            isDragActive 
+              ? "border-foreground bg-gradient-accent" 
+              : "border-border hover:border-muted-foreground hover:bg-gradient-accent"
           }`}
         >
           <input {...getInputProps()} />
@@ -97,40 +112,40 @@ export const ImageUpload = () => {
         </div>
       ) : (
         <div className="space-y-6">
-          <Card className="p-6 bg-secondary/20 border-glass">
-            <div className="flex items-start gap-6">
-              <div className="relative">
-                <img
-                  src={uploadedImage}
-                  alt="Uploaded product"
-                  className="w-48 h-48 object-cover rounded-lg shadow-lg"
-                />
-                {isProcessing && (
-                  <div className="absolute inset-0 bg-background/80 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                  </div>
-                )}
-              </div>
+            <Card className="p-6 bg-background border shadow-elegant">
+              <div className="flex items-start gap-6">
+                <div className="relative">
+                  <img
+                    src={uploadedImage}
+                    alt="Uploaded product"
+                    className="w-48 h-48 object-cover rounded-lg shadow-elevated"
+                  />
+                  {isProcessing && (
+                    <div className="absolute inset-0 bg-background/90 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                    </div>
+                  )}
+                </div>
               
               <div className="flex-1 space-y-4">
-                {isProcessing ? (
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-primary">
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      <span className="font-medium">AI is analyzing your image...</span>
+                  {isProcessing ? (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span className="font-medium">Analyzing product image...</span>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-4 bg-muted rounded animate-pulse" />
+                        <div className="h-4 bg-muted rounded animate-pulse w-3/4" />
+                        <div className="h-4 bg-muted rounded animate-pulse w-1/2" />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <div className="h-4 bg-muted rounded animate-pulse" />
-                      <div className="h-4 bg-muted rounded animate-pulse w-3/4" />
-                      <div className="h-4 bg-muted rounded animate-pulse w-1/2" />
-                    </div>
-                  </div>
-                ) : result ? (
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-green-400">
-                      <FileText className="h-5 w-5" />
-                      <span className="font-medium">AI Analysis Complete</span>
-                    </div>
+                  ) : result ? (
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 text-green-600">
+                        <FileText className="h-5 w-5" />
+                        <span className="font-medium">Analysis Complete</span>
+                      </div>
                     
                     <div className="space-y-3">
                       <div>
@@ -147,9 +162,9 @@ export const ImageUpload = () => {
                         <div>
                           <h4 className="font-semibold mb-1 flex items-center gap-2">
                             <DollarSign className="h-4 w-4" />
-                            Suggested Price
+                            Market Price
                           </h4>
-                          <p className="text-lg font-bold text-primary">{result.price}</p>
+                          <p className="text-lg font-bold text-foreground">{result.price}</p>
                         </div>
                         
                         <div>
